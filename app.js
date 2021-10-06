@@ -101,14 +101,15 @@ app.route('/newentry').get((req,res)=>{
         const file = req.files.postPicture;
         let personone;
         let persontwo;
-        Person.findById(req.body.personOne,(err,person)=>{
+        console.log(req.body.personone);
+        Person.findById(req.body.personone,(err,person)=>{
             if(err)
                 res.render(err);
             else{
                 personone = person
             }
         });
-        Person.findById(req.body.personTwo,(err,person)=>{
+        Person.findById(req.body.persontwo,(err,person)=>{
             if(err)
                 res.render(err);
             else{

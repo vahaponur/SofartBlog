@@ -1,4 +1,8 @@
 <%- include ('partials/header')%>
+<script>  $(document).ready(function () {
+    $('select').selectize({
+      sortField: 'text'
+    });</script>
     <link rel="stylesheet" href="/css/texteditor.css">
     <form id="newentryform" action="/newentry" method="post" enctype="multipart/form-data">
         <div class="container">
@@ -67,26 +71,27 @@
             <br>
             <div class="row">Eğer tek kişilik post ise sadece yazar giriniz</div>
             <div class="row">
-                <label for="personone">Yazar</label>
-                <input list="personone" name="personone">
-                <datalist id="personone">
-                    <% for (var i =0; i <personlist.length;  i++ ) { %>
-                        <option value="<%= personlist[i].firstName%> <%=personlist[i].lastName %>"> 
-                        <input type="hidden" name="personOne" value="<%=personlist[i]._id %>">
-                        <% } %>
-                </datalist>
+                <label for="personone"> Yazar </label>
+               <select name="personone" id="personone">
+                <% for (var i =0; i <personlist.length;  i++ ) { %>
+                    <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
+                    
+                    <% } %>
+               </select>
+                   
+               
             </div>
             <br>
             <div class="row">
                 <label for="persontwo">Grafiker</label>
-                <input list="persontwo" name="persontwo">
-                <datalist id="persontwo">
+                <select name="persontwo" id="persontwo" placeholder="bsfs">
                     <% for (var i =0; i <personlist.length;  i++ ) { %>
-                        <option value="">ZAAXD </option>
-                            
+                        <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
+                        
                         <% } %>
-                </datalist>
+                   </select>
             </div>
+   
             <br>
             <div class="row">
                 <div class="col-md-6">
@@ -117,6 +122,8 @@
             let param = document.getElementById('output').innerHTML;
             document.getElementById('postContent').value = param.toString();
 
-        }
+        };
+      
+  });
     </script>
     <%- include ('partials/footer') %>
