@@ -1,109 +1,122 @@
 <%- include ('partials/header')%>
-<link rel="stylesheet" href="/css/texteditor.css">
-<form id="newentryform" action="/newentry" method="post" enctype="multipart/form-data">
-    <div class="container">
-        <div class="row">
-            <label for="postTitle">Başlık</label>
-            <input class="form-control" id="postTitle" type="text" name="postTitle">
-        </div>
-        <div class="row">
-            <label for="postTitle">Özet ("1 - 2 Cümle Özet Yazın Zorunludur")</label>
-            <input class="form-control" id="postSummary" type="text" name="postSummary">
-        </div>
-        <div class="row">
-            <label for="postContent">İçerik</label>
-            <div class="toolbar">
-                <ul class="tool-list">
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command='justifyLeft'
-                            class="tool--btn">
-                            <i class=' fas fa-align-left'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command='justifyCenter' 
-                            class="tool--btn">
-                            <i class=' fas fa-align-center'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="bold" 
-                            class="tool--btn">
-                            <i class=' fas fa-bold'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="italic"
-                            class="tool--btn">
-                            <i class=' fas fa-italic'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="underline"
-                            class="tool--btn">
-                            <i class=' fas fa-underline'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="insertOrderedList"
-                            class="tool--btn">
-                            <i class=' fas fa-list-ol'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="insertUnorderedList"
-                            class="tool--btn">
-                            <i class=' fas fa-list-ul'></i>
-                        </button>
-                    </li>
-                    <li class="tool">
-                        <button 
-                            type="button" 
-                            data-command="createlink" 
-                            class="tool--btn">
-                            <i class=' fas fa-link'></i>
-                        </button>
-                    </li>
-                </ul>
+    <link rel="stylesheet" href="/css/texteditor.css">
+    <form id="newentryform" action="/newentry" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row">
+                <label for="postTitle">Başlık</label>
+                <input class="form-control" id="postTitle" type="text" name="postTitle">
             </div>
-            
-            <div id="output"    class="whitebackground" contenteditable="true"></div>
-            <input type="hidden" id="postContent" name="postContent">
+            <div class="row">
+                <label for="postTitle">Özet ("1 - 2 Cümle Özet Yazın Zorunludur")</label>
+                <input class="form-control" id="postSummary" type="text" name="postSummary">
+            </div>
+            <div class="row">
+                <label for="postContent">İçerik</label>
+                <div class="toolbar">
+                    <ul class="tool-list">
+                        <li class="tool">
+                            <button type="button" data-command='justifyLeft' class="tool--btn">
+                                <i class=' fas fa-align-left'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command='justifyCenter' class="tool--btn">
+                                <i class=' fas fa-align-center'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="bold" class="tool--btn">
+                                <i class=' fas fa-bold'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="italic" class="tool--btn">
+                                <i class=' fas fa-italic'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="underline" class="tool--btn">
+                                <i class=' fas fa-underline'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="insertOrderedList" class="tool--btn">
+                                <i class=' fas fa-list-ol'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="insertUnorderedList" class="tool--btn">
+                                <i class=' fas fa-list-ul'></i>
+                            </button>
+                        </li>
+                        <li class="tool">
+                            <button type="button" data-command="createlink" class="tool--btn">
+                                <i class=' fas fa-link'></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="output" class="whitebackground" contenteditable="true"></div>
+                <input type="hidden" id="postContent" name="postContent">
+            </div>
+            <div class="row">
+                <label for="postPicture">Post Resim</label>
+                <input id="postPicture" class="form-control" type="file" name="postPicture">
+            </div>
+            <br>
+            <div class="row">Eğer tek kişilik post ise sadece yazar giriniz</div>
+            <div class="row">
+                <label for="personone">Yazar</label>
+                <input list="personone" name="personone">
+                <datalist id="personone">
+                    <% for (var i =0; i <personlist.length;  i++ ) { %>
+                        <option value="<%= personlist[i].firstName%> <%=personlist[i].lastName %>"> 
+                        <input type="hidden" name="personOne" value="<%=personlist[i]._id %>">
+                        <% } %>
+                </datalist>
+            </div>
+            <br>
+            <div class="row">
+                <label for="persontwo">Grafiker</label>
+                <input list="persontwo" name="persontwo">
+                <datalist id="persontwo">
+                    <% for (var i =0; i <personlist.length;  i++ ) { %>
+                        <option value="">ZAAXD </option>
+                            
+                        <% } %>
+                </datalist>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <select name="type" id="type">
+                        <option value="yazar-grafiker">Yazar - Grafiker</option>
+                        <option value="yazar-cizer">Yazar - Çizer</option>
+                        <option value="tek">Tek Kişi</option>
+
+                    </select>
+                </div>
+
+            </div>
+            <label for="type">Post tipi seçiniz</label>
+
+
+            <div class="row">
+                <button class="form-control" onclick="appendDiv()">Gönder</button>
+            </div>
         </div>
-        <div class="row">
-            <label for="postPicture">Post Resim</label>
-            <input id="postPicture" class="form-control" type="file" name="postPicture">
-        </div>
-        <br>
-        <div class="row">
-            <button class="form-control" onclick="appendDiv()">Gönder</button>
-        </div>
-    </div>
-    
-   
-    
-    
-</form>
-<script src="/js/texteditor.js"></script>
-<script>
-    function appendDiv(){
-        let param = document.getElementById('output').innerHTML;
-        document.getElementById('postContent').value = param.toString();
-        
-    }
-</script>
-<%- include ('partials/footer') %> 
+
+
+
+
+    </form>
+    <script src="/js/texteditor.js"></script>
+    <script>
+        function appendDiv() {
+            let param = document.getElementById('output').innerHTML;
+            document.getElementById('postContent').value = param.toString();
+
+        }
+    </script>
+    <%- include ('partials/footer') %>
