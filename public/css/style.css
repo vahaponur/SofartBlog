@@ -1,0 +1,46 @@
+@media only screen and (min-width:1024px) {
+    .menubar{
+        height: 5em;
+        display: flex;
+        
+       justify-content: space-around;
+       align-items: center;
+        background-color: #79B4B7;
+        margin: auto;
+     }
+     #logo{
+         width: 10rem;
+     }
+     .menuyazi{
+         font-size: 1.2em;
+     }
+     .white{
+         color: white;  
+     }
+     .whitebackground{
+         background-color: white;
+     }
+     .white:hover{
+         color:#F8F0DF;
+     }
+     .yesilsite{
+        background-color: #79B4B7;
+     }
+     body{
+         background-color: #FEFBF3;
+     }
+     .yetmislik{
+         width: 70%;
+         
+     }
+
+     .card-color{
+         background-color: #FEFBF3 !important;
+     }
+     .dumangri{
+         color: #9D9D9D;
+     }
+     .hamburger{
+         display: none;
+     }
+}

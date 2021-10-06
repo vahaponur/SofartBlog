@@ -1,0 +1,50 @@
+<%-include ('partials/header')%> 
+<section class="container featured-post">
+  <h3 class="dumangri mb-2 text-center">Güncel</h3>
+  <div class="container mb-5">
+    <div class="row guncel">
+      <div class="col-md-4 mb-2">
+        <div class="card card-color text-center">
+          <img src="<%=featuredPosts[0].imageName%>" width="300" height="200"class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%=featuredPosts[0].title%></h5>
+            <p class=""><%=featuredPosts[0].summary.substring(0,30)+"..."%></p>
+            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card card-color text-center">
+          <img src="<%=featuredPosts[1].imageName%>" width="300" height="200" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%=featuredPosts[1].title%></h5>
+            <p class="card-text"><%=featuredPosts[1].summary.substring(0,30)+"..."%></p>
+            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-2">
+        <div class="card card-color text-center">
+          <img src="<%=featuredPosts[2].imageName%>" class="card-img-top" width="300" height="200" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><%=featuredPosts[2].title%></h5>
+            <p class="card-text"><%=featuredPosts[2].summary.substring(0,30)+"..."%></p>
+            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+<section class="twitterinsta">
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col"></div>
+
+  </div>
+</div>
+</section>
+
+
+<%- include('partials/footer')%>

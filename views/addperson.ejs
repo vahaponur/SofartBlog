@@ -1,0 +1,62 @@
+<%- include ('partials/header')%>
+<link rel="stylesheet" href="/css/texteditor.css">
+<form id="addperson" action="/addperson" method="post" enctype="multipart/form-data">
+   <div class="container">
+    <div class="row">
+        <label for="fname">İsim</label>
+        <input class="form-control" type="text" name="fname" id="fname">
+    </div>
+    <div class="row">
+        <label for="lname">Soyisim</label>
+        <input class="form-control" type="text" name="lname" id="lname">
+    </div>
+    <div class="row">
+        <label for="rutbe">Rutbe(Yazar,Grafiker,Sosyal Medya Yön. vs...)</label>
+        <input class="form-control" type="text" name="rutbe" id="rutbe">
+    </div>
+    <div class="row">
+        <label for="picture">Resim (en az 300x300, büyükse kare olmasına dikkat ediniz)</label>
+        <input class="form-control" id="picture" class="form-control" type="file" name="picture">
+    </div>
+
+    <br>
+    <div class="row">
+        <p>Bu alanlar zorunlu değildir. Ama en az 1 bilgi girilmesi tavsiye edilir</p>
+    </div>
+    <div class="row">
+        <label for="email">Email (exp: vonuryild@gmail.com)</label>
+        <input class="form-control" type="email" name="email" id="email">
+    </div>
+    <div class="row">
+        <label for="linkedin">Linkedin (profil adresi giriniz başında https:// OLMASINA dikkat edin)</label>
+        <input class="form-control" type="text" name="linkedin" id="linkedin">
+    </div>
+   
+    <div class="row">
+        <label for="behance">Behance (profil adresi giriniz başında https:// OLMASINA dikkat edin)</label>
+        <input class="form-control" type="text" name="behance" id="behance">
+    </div>
+    <div class="row">
+        <label for="pinterest">Pinterest (profil adresi giriniz başında https:// OLMASINA dikkat edin)</label>
+        <input class="form-control" type="text" name="pinterest" id="pinterest">
+    </div>
+    <div class="row">
+        <label for="personalwebsite">Kişisel Website (profil adresi giriniz başında https:// OLMASINA dikkat edin)</label>
+        <input class="form-control" type="text" name="personalwebsite" id="personalwebsite">
+    </div>
+    <div class="mt-2">
+        <button  class="btn  whitebackground" type="submit">Kişiyi Kaydet</button>
+    </div>
+
+   </div>
+
+</form>
+<script src="/js/texteditor.js"></script>
+<script>
+    function appendDiv(){
+        let param = document.getElementById('output').innerHTML;
+        document.getElementById('postContent').value = param.toString();
+        
+    }
+</script>
+<%- include ('partials/footer') %> 
