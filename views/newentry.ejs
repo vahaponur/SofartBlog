@@ -1,8 +1,8 @@
 <%- include ('partials/header')%>
     <script>    $(document).ready(function () {
-        //change selectboxes to selectize mode to be searchable
-        $('select').select2();
-    });</script>
+            //change selectboxes to selectize mode to be searchable
+            $('select').select2();
+        });</script>
     <link rel="stylesheet" href="/css/texteditor.css">
     <form id="newentryform" action="/newentry" method="post" enctype="multipart/form-data">
         <div class="container">
@@ -72,31 +72,47 @@
             <div class="row">Eğer tek kişilik post ise sadece yazar giriniz</div>
             <div class="row">
                 <label for="personone"> Yazar </label>
-               <select name="personone" id="personone" placeholder="bisi">
-                <% for (var i =0; i <personlist.length;  i++ ) { %>
-                    <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
-                    
-                    <% } %>
-               </select>
-                   
-               
+                <select name="personone" id="personone" placeholder="bisi">
+                    <option value="615e60fc2865e72f1c34ea8d">Seçim Yapınız </option>
+                    <% for (var i=0; i <personlist.length; i++ ) { %>
+                        
+                        <% if (personlist[i]._id.toString() !=="615e60fc2865e72f1c34ea8d" ) { %>
+                            <option value="<%=personlist[i]._id%>">
+                                <%=personlist[i].firstName%>
+                                    <%=personlist[i].lastName %>
+                            </option>
+
+                            <% } %>
+
+                                <% } %>
+                </select>
+
+
             </div>
             <br>
             <div class="row">
                 <label for="persontwo"> Grafiker </label>
                 <select name="persontwo" id="persontwo" placeholder="bsfs">
-                    <% for (var i =0; i <personlist.length;  i++ ) { %>
-                        <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
-                        
-                        <% } %>
-                   </select>
+                    <option value="615e60fc2865e72f1c34ea8d">Seçim Yapınız </option>
+
+                    <% for (var i=0; i <personlist.length; i++ ) { %>
+                        <% if (personlist[i]._id.toString() !=="615e60fc2865e72f1c34ea8d" ) { %>
+                            <option value="<%=personlist[i]._id%>">
+                                <%=personlist[i].firstName%>
+                                    <%=personlist[i].lastName %>
+                            </option>
+
+                            <% } %>
+
+                                <% } %>
+                </select>
             </div>
-   
+
             <br>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="type">Post tipi seçiniz</label>
-                    <select name="type" id="type">
+                    <label for="postTip">Post tipi seçiniz</label>
+                    <select name="postTip" id="postTip">
                         <option value="yazar-grafiker">Yazar - Grafiker</option>
                         <option value="yazar-cizer">Yazar - Çizer</option>
                         <option value="tek">Tek Kişi</option>
@@ -105,14 +121,28 @@
                 </div>
 
             </div>
-            
+            <div class="row">
+                <label for="category"> Kategori Secin </label>
+                <select name="category" id="category" placeholder="bsfs">
 
+                    <% for (var i=0; i <categories.length; i++ ) { %>
+
+                        <option value="<%=categories[i].toLocaleString()%>">
+                            <%= categories[i].toLocaleString() %> 
+                        </option>
+
+
+
+                        <% } %>
+                </select>
+            </div>
+            <br>
 
             <div class="row">
                 <button class="form-control" onclick="appendDiv()">Gönder</button>
             </div>
         </div>
-
+        <br>
 
 
 
@@ -124,6 +154,6 @@
             document.getElementById('postContent').value = param.toString();
 
         };
-    
+
     </script>
     <%- include ('partials/footer') %>

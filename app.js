@@ -1,4 +1,4 @@
-const { assert } = require('console');
+
 const express = require('express');
 const upload = require('express-fileupload');
 const fs = require('fs');
@@ -9,7 +9,22 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(upload());
-
+let categories = ["Edebiyat",
+"Ekoloji",
+"Eleştiri",
+"Farklı Sanat Dalları",
+"Felsefe",
+"Gezi Yazıları",
+"Güncel",
+"İç Mimari",
+"İlginç Tasarımlar",
+"Malzeme",
+"Mimari",
+"Mitoloji/Tarih",
+"Özel Günler",
+"Psikoloji/Sosyoloji",
+"Röportaj",
+"Yapı",];
 mongoose.connect('mongodb://localhost:27017/sofartDB');
 const personSchema = new mongoose.Schema({
     firstName: {
@@ -46,6 +61,7 @@ const personSchema = new mongoose.Schema({
 
 });
 const Person = mongoose.model('person', personSchema);
+
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -60,14 +76,18 @@ const postSchema = new mongoose.Schema({
         required: true
     },
 
-    person1: mongoose.type.ObjectId,
-    person2: mongoose.type.ObjectId,
+    person1: [{type:mongoose.Schema.Types.ObjectId, ref:'Person'}],
+    person2: [{type:mongoose.Schema.Types.ObjectId, ref:'Person'}],
     imageName: {
         type: String,
         required: true
     },
     tip: {
         type: String
+    },
+    category:{
+        type:String,
+        required:true
     }
 });
 const Post = mongoose.model('Post', postSchema);
@@ -89,29 +109,13 @@ app.route('/newentry').get((req, res) => {
         }
         else {
             if (results) {
-                res.render('newentry', { pageTitle: 'Sofart - Post Girişi', personlist: results });
+                res.render('newentry', { pageTitle: 'Sofart - Post Girişi', personlist: results, categories:categories });
             }
         }
 
     })
 
 }).post((req, res) => {
-    
-    
-    
-    // const query1 = async()=>{
-        
-    //     await Person.findById(mongoose.Types.ObjectId(req.body.personone.toString()),(err,res)=>{
-    //         personone = res;
-    //     });
-    // };
-    // const query2 =  async()=>{
-        
-    //     await Person.findById(mongoose.Types.ObjectId(req.body.personone.toString()),(err,res)=>{
-    //         persontwo = res;
-    //     });
-        
-    // };
     let promises = [
         Person.findById(mongoose.Types.ObjectId(req.body.personone.toString())).exec(),
         Person.findById(mongoose.Types.ObjectId(req.body.persontwo.toString())).exec(),
@@ -121,13 +125,16 @@ app.route('/newentry').get((req, res) => {
         
         let personone = data[0]._id;
         let persontwo = data[1]._id;
+        console.log(personone[0]);
+        
        
         if (req.files) {
             const title = req.body.postTitle;
             const content = req.body.postContent;
             const summary = req.body.postSummary;
             const file = req.files.postPicture;
-            console.log(persontwo);
+            const tip = req.body.postTip;
+            const category = req.body.category;
             let filename = file.name;
             let path = __dirname + '/public/img/' + filename;
             let filenumber = 0;
@@ -142,7 +149,9 @@ app.route('/newentry').get((req, res) => {
                 summary: summary,
                 imageName: '/img/' + filename,
                 person1: personone,
-                person2: persontwo
+                person2: persontwo,
+                tip: tip,
+                category: category
     
             });
             
@@ -160,12 +169,14 @@ app.route('/newentry').get((req, res) => {
 
   
 
-})
+});
+
+// Yeni Üye Girişi
 app.route('/addperson').get((req, res) => {
     res.render('addperson', { pageTitle: 'Kişi Ekle' });
 }).post((req, res) => {
     if (req.files) {
-        console.log(__dirname);
+        
         const fname = req.body.fname;
         const lname = req.body.lname;
         const rutbe = req.body.rutbe;
@@ -198,17 +209,21 @@ app.route('/addperson').get((req, res) => {
 
             });
             file.mv('./public/img/personimg/' + filename);
-            person.save();
+            person.save().then(()=>{
+                res.redirect('/addperson');
+            });
 
 
-            res.redirect('/addperson');
+            
         }
 
     }
     else {
         res.send('resim olmadan yollanmaz');
     }
-})
+});
+
+
 const PORT = 3169;
 app.listen(3169, () => {
     console.log('Server up and running on Port: ' + PORT.toLocaleString());
