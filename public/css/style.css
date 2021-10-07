@@ -1,4 +1,4 @@
-@media only screen and (min-width:1024px) {
+@media only screen and (min-width:770px) {
     .menubar{
         height: 5em;
         display: flex;
@@ -53,4 +53,38 @@
      .hamburger{
          display: none;
      }
+}
+.imgborder{
+    border: 5px solid #F8F0DF ;
+    padding: 0;
+}
+.textborder{
+    border: 5px solid #F8F0DF !important;
+    padding: 0.3em;
+}
+.posttext{
+    font-size:1.25em;
+    letter-spacing:1px ;
+    text-align: justify;
+}
+.bisiborder{
+    border: 1px solid red !important;
+}
+.yesilborder{
+    border-color: #79B4B7 !important;
+}
+.ubuntu{
+    font-family: 'Ubuntu', sans-serif !important;
+}
+.ubuntu-ligth{
+    font-family: 'Ubuntu', sans-serif !important;
+    font-weight: 300 !important;
+}
+.normaltitle { font-weight:normal !important; }
+.postbackground{
+    background-color: #F8F0DF !important;
+}
+.yuvarlak{
+    border-radius: 100%;
+    object-fit: cover;
 }

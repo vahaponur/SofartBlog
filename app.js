@@ -223,7 +223,7 @@ app.route('/addperson').get((req, res) => {
     }
 });
 
-app.get('post',(req,res)=>{
+app.get('/post',(req,res)=>{
     res.render('post',{pageTitle:"Hi World"})
 })
 const PORT = 3169;
