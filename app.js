@@ -223,7 +223,9 @@ app.route('/addperson').get((req, res) => {
     }
 });
 
-
+app.get('post',(req,res)=>{
+    res.render('post',{pageTitle:"Hi World"})
+})
 const PORT = 3169;
 app.listen(3169, () => {
     console.log('Server up and running on Port: ' + PORT.toLocaleString());
