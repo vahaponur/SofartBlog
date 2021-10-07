@@ -1,7 +1,7 @@
 <%- include ('partials/header')%>
-<script>  $(document).ready(function () {
-    $('select').selectize({
-      sortField: 'text'
+    <script>    $(document).ready(function () {
+        //change selectboxes to selectize mode to be searchable
+        $('select').select2();
     });</script>
     <link rel="stylesheet" href="/css/texteditor.css">
     <form id="newentryform" action="/newentry" method="post" enctype="multipart/form-data">
@@ -72,7 +72,7 @@
             <div class="row">Eğer tek kişilik post ise sadece yazar giriniz</div>
             <div class="row">
                 <label for="personone"> Yazar </label>
-               <select name="personone" id="personone">
+               <select name="personone" id="personone" placeholder="bisi">
                 <% for (var i =0; i <personlist.length;  i++ ) { %>
                     <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
                     
@@ -83,7 +83,7 @@
             </div>
             <br>
             <div class="row">
-                <label for="persontwo">Grafiker</label>
+                <label for="persontwo"> Grafiker </label>
                 <select name="persontwo" id="persontwo" placeholder="bsfs">
                     <% for (var i =0; i <personlist.length;  i++ ) { %>
                         <option value="<%=personlist[i]._id%>"><%=personlist[i].firstName%> <%=personlist[i].lastName  %>  </option>
@@ -95,6 +95,7 @@
             <br>
             <div class="row">
                 <div class="col-md-6">
+                    <label for="type">Post tipi seçiniz</label>
                     <select name="type" id="type">
                         <option value="yazar-grafiker">Yazar - Grafiker</option>
                         <option value="yazar-cizer">Yazar - Çizer</option>
@@ -104,7 +105,7 @@
                 </div>
 
             </div>
-            <label for="type">Post tipi seçiniz</label>
+            
 
 
             <div class="row">
@@ -123,7 +124,6 @@
             document.getElementById('postContent').value = param.toString();
 
         };
-      
-  });
+    
     </script>
     <%- include ('partials/footer') %>
