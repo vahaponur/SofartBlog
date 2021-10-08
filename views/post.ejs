@@ -1,68 +1,168 @@
 <%-include ('partials/header')%>
-<div class="container">
+  <div class="container">
     <div class="row justify-content-center">
-        <div class="col-auto">
-        <h1 class="ubuntu-light normaltitle">Kübizm</h1>
-        </div>
+      <div class="col-auto">
+        <h1 class="ubuntu-light normaltitle">
+          <%=post.title%>
+        </h1>
+      </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-auto imgborder">
-        <img src="/img/byza.gif" class="img-fluid" height:auto; alt="">
-        </div>
-    </div>
-
-    <div class="row justify-content-center">
-        <div class="col-auto textborder postbackground">
-        <p class="posttext ubuntu-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus perspiciatis suscipit nulla, nihil asperiores eaque quas, omnis tenetur, error ad odit natus rem vel similique eveniet dolor excepturi debitis nobis alias nesciunt. Molestiae illo modi totam inventore voluptatibus atque, recusandae blanditiis soluta ipsum sed assumenda id dolorem fuga a consequuntur at fugiat maxime, libero, possimus maiores eius numquam impedit aspernatur. Vitae sed et modi illo suscipit rem aspernatur aut eum, consectetur corporis eos necessitatibus eius est doloremque ducimus soluta inventore blanditiis sit magni veritatis laborum. Consequuntur fuga mollitia, labore laboriosam obcaecati praesentium hic sit ut delectus aliquid repudiandae illo soluta!</p>
-        </div>
+      <div class="col-auto imgborder">
+        <img src="<%=post.imageName%> " class="img-fluid" alt="">
+      </div>
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
+      <div class="col-auto textborder postbackground">
+        <p class="posttext ubuntu-light">
+          <%-post.content%>
+        </p>
+      </div>
+    </div>
+    <% if (post.tip.toString()=="yazar-grafiker" || post.tip.toString()=="yazar-cizer" ) { %>
+      <div class="row persons postbackground">
         <!-- Yazar -->
-        <div class="col-md-6 postbackground">
-            <p class="text-center">Yazar</p>
-            <div class="card yesilborder mb-3 postbackground px-2 py-2 " style="max-width: 540px;">
-                <div class="row ">
-                  <div class="col-4">
-                    <img src="/img/personimg/furkan.jpg" height="188px" width="159px" style="height: 150px; width: 150px; object-fit: cover;" class="card-img rounded-circle" alt="...">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                        
-                            <h5 class="card-title text-center">Vahap Onur YILDIRIM</h5>
-                            <p class="card-text text-muted text-center">Web Geliştirici</p>
-                            
-                       
-                      
-                    </div>
-                  </div>
+        <div class="col-md-5 postbackground">
+          <p class="text-center">Yazar</p>
+          <div class="card yesilborder mb-3 postbackground px-2 py-2 " style="max-width: 540px;">
+            <div class="row ">
+              <div class="col-4">
+                <img src="<%=yazar.picture %> " height="188px" width="159px"
+                  style="height: 150px; width: 150px; object-fit: cover;" class="card-img rounded-circle" alt="...">
+              </div>
+              <div class="col-8">
+                <div class="card-body">
+
+                  <h5 class="card-title text-center">
+                    <%- yazar.firstName%> <%- yazar.lastName %> 
+                  </h5>
+                  <p class="card-text text-muted text-center">
+                    <%= yazar.rutbe %>
+                  </p>
+                  <p class="text-center text-muted posttext">
+                    <% if (yazar.linkedin.toString() !=="") { %>
+                     <a href="<%=yazar.linkedin%>"><i class="fab fa-linkedin text-muted fa-lg"></i></a>
+                    <% } %>
+
+                    <% if (yazar.email.toString() !=="") { %>
+                      <a href="mailto:<%=yazar.email%>"><i class="fas fa-envelope-square text-muted fa-lg"></i></a>
+                     <% } %>
+
+                     <% if (yazar.behance.toString() !=="") { %>
+                      <a href="<%=yazar.behance%>"><i class="fab fa-behance-square text-muted fa-lg"></i></a>
+                     <% } %>
+                     <% if (yazar.behance.toString() !=="") { %>
+                      <a href="<%=yazar.pinterest%>"><i class="fab fa-pinterest-square text-muted fa-lg"></i></a>
+                     <% } %>
+                  </p>
+
+
                 </div>
               </div>
+            </div>
+          </div>
         </div>
-
+        <div class="col-md-2"></div>
         <!-- Grafiker -->
-        <div class="col-md-6 postbackground">
+        <div class="col-md-5 postbackground">
+          <% if (post.tip.toString()=="yazar-grafiker" ) { %>
             <p class="text-center">Grafiker</p>
-            <div class="card yesilborder mb-3 postbackground px-2 py-2 " style="max-width: 540px;">
-                <div class="row ">
-                  <div class="col-4">
-                    <img src="/img/personimg/furkan.jpg" height="188px" width="159px" style="height: 150px; width: 150px; object-fit: cover;" class="card-img rounded-circle" alt="...">
-                  </div>
-                  <div class="col-8">
-                    <div class="card-body">
-                        
-                            <h5 class="card-title text-center">Vahap Onur YILDIRIM</h5>
-                            <p class="card-text text-muted text-center">Web Geliştirici</p>
-                            
-                       
-                      
+            <% } %>
+              <% if (post.tip.toString()=="yazar-cizer" ) { %>
+                <p class="text-center">Çizer</p>
+                <% } %>
+
+                  <div class="card yesilborder mb-3 postbackground px-2 py-2 " style="max-width: 540px;">
+                    <div class="row ">
+                      <div class="col-4">
+                        <img src="<%= grafiker.picture %> " height="188px" width="159px"
+                          style="height: 150px; width: 150px; object-fit: cover;" class="card-img rounded-circle"
+                          alt="...">
+                      </div>
+                      <div class="col-8">
+                        <div class="card-body">
+
+                          <h5 class="card-title text-center">
+                            <%-grafiker.firstName %> <%- grafiker.lastName %> 
+                          </h5>
+                          <p class="card-text text-muted text-center">
+                            <%- grafiker.rutbe %>
+                          </p>
+                        </p>
+                        <p class="text-center text-muted posttext">
+                          <% if (grafiker.linkedin.toString() !=="") { %>
+                           <a href="<%=grafiker.linkedin%>"><i class="fab fa-linkedin text-muted fa-lg"></i></a>
+                          <% } %>
+      
+                          <% if (grafiker.email.toString() !=="") { %>
+                            <a href="mailto:<%=grafiker.email%>"><i class="fas fa-envelope-square text-muted fa-lg"></i></a>
+                           <% } %>
+                           <% if (grafiker.behance.toString() !=="") { %>
+                            <a href="<%=grafiker.behance%>"><i class="fab fa-behance-square text-muted fa-lg"></i></a>
+                           <% } %>
+                           <% if (grafiker.behance.toString() !=="") { %>
+                            <a href="<%=grafiker.pinterest%>"><i class="fab fa-pinterest-square text-muted fa-lg"></i></a>
+                           <% } %>
+                        </p>
+
+
+                        </div>
+                      </div>
                     </div>
+                  </div>
+        </div>
+      </div>
+      <% } else { %>
+        <div class="row postbackground persons">
+          <!-- Yazar -->
+          <div class="col-md-3"></div>
+          <div class="col-md-6 postbackground">
+            <div class="card yesilborder mb-3 postbackground px-2 py-2 " style="max-width: 540px;">
+              <div class="row ">
+                <div class="col-4">
+                  <img src="<%=yazar.picture %> " height="188px" width="159px"
+                    style="height: 150px; width: 150px; object-fit: cover;" class="card-img rounded-circle" alt="...">
+                </div>
+                <div class="col-8">
+                  <div class="card-body">
+
+                    <h5 class="card-title text-center">
+                      <%- yazar.firstName%> <%- yazar.lastName %> 
+                    </h5>
+                    <p class="card-text text-muted text-center">
+                      <%= yazar.rutbe %>
+                    </p>
+                  </p>
+                  <p class="text-center text-muted posttext">
+                    <% if (yazar.linkedin.toString() !=="") { %>
+                     <a href="<%=yazar.linkedin%>"><i class="fab fa-linkedin text-muted fa-lg"></i></a>
+                    <% } %>
+
+                    <% if (yazar.email.toString() !=="") { %>
+                      <a href="mailto:<%=yazar.email%>"><i class="fas fa-envelope-square text-muted fa-lg"></i></a>
+                     <% } %>
+
+                     <% if (yazar.behance.toString() !=="") { %>
+                      <a href="<%=yazar.behance%>"><i class="fab fa-behance-square text-muted fa-lg"></i></a>
+                     <% } %>
+                     <% if (yazar.behance.toString() !=="") { %>
+                      <a href="<%=yazar.pinterest%>"><i class="fab fa-pinterest-square text-muted fa-lg"></i></a>
+                     <% } %>
+                  </p>
+
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="col-md-3"></div>
         </div>
-    </div>
-</div>
+        <% } %>
 
 
-<%- include('partials/footer')%>
+
+  </div>
+
+
+  <%- include('partials/footer')%>

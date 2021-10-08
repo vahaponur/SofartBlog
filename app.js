@@ -116,7 +116,7 @@ app.route('/newentry').get((req, res) => {
     })
 
 }).post((req, res) => {
-    let promises = [
+    const promises = [
         Person.findById(mongoose.Types.ObjectId(req.body.personone.toString())).exec(),
         Person.findById(mongoose.Types.ObjectId(req.body.persontwo.toString())).exec(),
     ];
@@ -223,9 +223,46 @@ app.route('/addperson').get((req, res) => {
     }
 });
 
-app.get('/post',(req,res)=>{
-    res.render('post',{pageTitle:"Hi World"})
+//Post Routing
+app.route('/post/:postID').get((req,res)=>{
+    const promise1 = new Promise((resolve,reject)=>{
+        
+        console.log(req.params.postID);
+    });
+
+    Post.findById(mongoose.Types.ObjectId(req.params.postID.toString())).exec().then((post)=>{
+            console.log(post);
+            const postyolla = post;
+            if(postyolla.tip !=="tek"){
+                const promises =[
+                    Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec(),
+                    Person.findById(mongoose.Types.ObjectId(post.person2[0].toString())).exec(),
+                ]
+                
+                
+                Promise.all(promises).then((data)=>{
+                    let yazar = data[0];
+                    let grafiker = data[1];
+                    res.render('post',{pageTitle:post.title + " - SofART Dergi",post:post, yazar:yazar, grafiker:grafiker});
+                });
+                
+            }
+
+            else{
+                Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec().then((data)=>{
+                    let yazar = data;
+                    res.render('post',{pageTitle:post.title,post:post, yazar:yazar, grafiker:yazar});
+                })
+            }
+          
+
+    })
+
+    
 })
+
+
+
 const PORT = 3169;
 app.listen(3169, () => {
     console.log('Server up and running on Port: ' + PORT.toLocaleString());

@@ -88,3 +88,13 @@
     border-radius: 100%;
     object-fit: cover;
 }
+.mobilmenuitem{
+    border-bottom: 1px solid #F8F0DF;
+    margin-bottom: 5px;
+}
+.mitem2:hover{
+    color: azure;
+}
+.activemenu{
+    color: #FEFBF3;
+}

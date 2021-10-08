@@ -9,7 +9,7 @@
           <div class="card-body">
             <h5 class="card-title"><%=featuredPosts[0].title%></h5>
             <p class=""><%=featuredPosts[0].summary.substring(0,30)+"..."%></p>
-            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+            <a href="/post/<%= featuredPosts[0]._id %> " class="btn btn-primary">Devamını Gör...</a>
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
           <div class="card-body">
             <h5 class="card-title"><%=featuredPosts[1].title%></h5>
             <p class="card-text"><%=featuredPosts[1].summary.substring(0,30)+"..."%></p>
-            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+            <a href="/post/<%= featuredPosts[1]._id %> " class="btn btn-primary">Devamını Gör...</a>
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
           <div class="card-body">
             <h5 class="card-title"><%=featuredPosts[2].title%></h5>
             <p class="card-text"><%=featuredPosts[2].summary.substring(0,30)+"..."%></p>
-            <a href="#" class="btn btn-primary">Devamını Gör...</a>
+            <a href="/post/<%= featuredPosts[2]._id %> " class="btn btn-primary">Devamını Gör...</a>
           </div>
         </div>
       </div>
