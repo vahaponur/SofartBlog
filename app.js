@@ -125,7 +125,7 @@ app.route('/newentry').get((req, res) => {
         
         let personone = data[0]._id;
         let persontwo = data[1]._id;
-        console.log(personone[0]);
+        
         
        
         if (req.files) {
@@ -225,13 +225,10 @@ app.route('/addperson').get((req, res) => {
 
 //Post Routing
 app.route('/post/:postID').get((req,res)=>{
-    const promise1 = new Promise((resolve,reject)=>{
-        
-        console.log(req.params.postID);
-    });
+
 
     Post.findById(mongoose.Types.ObjectId(req.params.postID.toString())).exec().then((post)=>{
-            console.log(post);
+            
             const postyolla = post;
             if(postyolla.tip !=="tek"){
                 const promises =[
@@ -259,7 +256,7 @@ app.route('/post/:postID').get((req,res)=>{
     })
 
     
-})
+});
 
 
 
