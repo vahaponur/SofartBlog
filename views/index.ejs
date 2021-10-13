@@ -3,36 +3,18 @@
   <h3 class="dumangri mb-2 text-center">Güncel</h3>
   <div class="container mb-5">
     <div class="row guncel">
-      <div class="col-md-4 mb-2">
-        <div class="card card-color text-center">
-          <img src="<%=featuredPosts[0].imageName%>" width="300" height="250"class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><%=featuredPosts[0].title%></h5>
-            <p class=""><%=featuredPosts[0].summary.substring(0,30)+"..."%></p>
-            <a href="/post/<%= featuredPosts[0]._id %> " class="btn btn-primary">Devamını Gör...</a>
+      <% for( let index = 0; index < featuredPosts.length; index++ ) { %>
+        <div class="col-md-4 mb-2">
+          <div class="card card-color text-center">
+            <img src="<%=featuredPosts[index].imageName%>" width="300" height="250"class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title"><%=featuredPosts[index].title%></h5>
+              <p class=""><%=featuredPosts[index].summary.substring(0,30)+"..."%></p>
+              <a href="/post/<%= featuredPosts[index]._id %> " class="btn btn-primary">Devamını Gör...</a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-4 mb-2">
-        <div class="card card-color text-center">
-          <img src="<%=featuredPosts[1].imageName%>" width="300" height="250" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><%=featuredPosts[1].title%></h5>
-            <p class="card-text"><%=featuredPosts[1].summary.substring(0,30)+"..."%></p>
-            <a href="/post/<%= featuredPosts[1]._id %> " class="btn btn-primary">Devamını Gör...</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 mb-2">
-        <div class="card card-color text-center">
-          <img src="<%=featuredPosts[2].imageName%>" class="card-img-top" width="300" height="250" alt="...">
-          <div class="card-body">
-            <h5 class="card-title"><%=featuredPosts[2].title%></h5>
-            <p class="card-text"><%=featuredPosts[2].summary.substring(0,30)+"..."%></p>
-            <a href="/post/<%= featuredPosts[2]._id %> " class="btn btn-primary">Devamını Gör...</a>
-          </div>
-        </div>
-      </div>
+      <% } %>
     </div>
 </section>
 

@@ -226,36 +226,51 @@ app.route('/addperson').get((req, res) => {
 //Post Routing
 app.route('/post/:postID').get((req,res)=>{
 
-
     Post.findById(mongoose.Types.ObjectId(req.params.postID.toString())).exec().then((post)=>{
             
             const postyolla = post;
-            if(postyolla.tip !=="tek"){
-                const promises =[
-                    Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec(),
-                    Person.findById(mongoose.Types.ObjectId(post.person2[0].toString())).exec(),
-                ]
-                
-                
-                Promise.all(promises).then((data)=>{
-                    let yazar = data[0];
-                    let grafiker = data[1];
-                    res.render('post',{pageTitle:post.title + " - SofART Dergi",post:post, yazar:yazar, grafiker:grafiker});
-                });
-                
-            }
+            
+            const otherPost=[
+                Post.findOne({_id:{$lt:post._id}}).sort({_id:-1}).exec(),
+                Post.findOne({_id:{$gt:post._id}}).sort({_id:1}).exec(),
+            ];
 
-            else{
-                Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec().then((data)=>{
-                    let yazar = data;
-                    res.render('post',{pageTitle:post.title,post:post, yazar:yazar, grafiker:yazar});
-                })
-            }
-          
+            let previous="bos",next = "bos";
 
-    })
+            Promise.all(otherPost).then(data=>{
+                if(data[0]){
+                    previous = data[0];
+                }
+                if(data[1]){
+                    next = data[1];
+                }
 
+
+                if(postyolla.tip !=="tek"){
+                    const promises =[
+                        Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec(),
+                        Person.findById(mongoose.Types.ObjectId(post.person2[0].toString())).exec(),
+                    ]
+                    
+                    
+                    Promise.all(promises).then((data)=>{
+                        let yazar = data[0];
+                        let grafiker = data[1];
+                        res.render('post',{pageTitle:post.title + " - SofART Dergi",post:post, yazar:yazar, grafiker:grafiker,previous:previous,next:next});
+                    });
+                    
+                }
     
+                else{
+                    Person.findById(mongoose.Types.ObjectId(post.person1[0].toString())).exec().then((data)=>{
+                        let yazar = data;
+                        res.render('post',{pageTitle:post.title,post:post, yazar:yazar, grafiker:yazar,previous:previous,next:next});
+                    })
+                }
+             
+            });
+    });
+
 });
 
 

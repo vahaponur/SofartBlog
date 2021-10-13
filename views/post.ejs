@@ -8,16 +8,16 @@
       </div>
     </div>
     <div class="row justify-content-center postbackground">
-      <div class="col-auto imgborder postbackground">
-        <img src="<%=post.imageName%> " class="img-fluid" width="1200" alt="">
+      <div class="col-auto imgborder postbackground pt-5">
+        <img src="<%=post.imageName%> " class="img-fluid" width="1000" alt="">
       </div>
     </div>
 
     <div class="row justify-content-center">
       <div class="col-auto textborder postbackground">
-        <p class="posttext ubuntu-light">
+        <div class="posttext ubuntu-light p-5 gray">
           <%-post.content%>
-        </p>
+        </div>
       </div>
     </div>
     <% if (post.tip.toString()=="yazar-grafiker" || post.tip.toString()=="yazar-cizer" ) { %>
@@ -159,7 +159,15 @@
           <div class="col-md-3"></div>
         </div>
         <% } %>
+        <div>
+          <% if (previous != "bos") { %>
+           <a href="/post/<%= previous._id %>" class="">previous</a>
+          <% } %>
 
+          <% if (next != "bos") { %>
+            <a href="/post/<%= next._id %>" class="">next</a>
+           <% } %>
+        </div>
 
 
   </div>

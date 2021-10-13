@@ -24,9 +24,7 @@
      .menuyazi{
          font-size: 1.2em;
      }
-     .white{
-         color: white;  
-     }
+     
      .whitebackground{
          background-color: white;
      }
@@ -54,6 +52,9 @@
          display: none;
      }
 }
+.white{
+    color: white;  
+}
 .imgborder{
     border: 5px solid #F8F0DF ;
     padding: 0;
@@ -63,10 +64,11 @@
     padding: 0.3em;
 }
 .posttext{
-    font-size:1.25em;
-    letter-spacing:1px ;
+    font-size:1.1em;
+    letter-spacing:0.7px ;
     text-align: justify;
 }
+
 .bisiborder{
     border: 1px solid red !important;
 }
@@ -82,7 +84,7 @@
 }
 .normaltitle { font-weight:normal !important; }
 .postbackground{
-    background-color: #F8F0DF !important;
+    background-color: #c0af87 !important;
 }
 .yuvarlak{
     border-radius: 100%;
@@ -91,6 +93,9 @@
 .mobilmenuitem{
     border-bottom: 1px solid #F8F0DF;
     margin-bottom: 5px;
+}
+.gray{
+    color: gainsboro;
 }
 .mitem2:hover{
     color: azure;
