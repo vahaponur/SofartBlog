@@ -88,7 +88,11 @@ const postSchema = new mongoose.Schema({
     category:{
         type:String,
         required:true
+    },
+    girditipi:{
+        type:String
     }
+
 });
 const Post = mongoose.model('Post', postSchema);
 
@@ -135,6 +139,7 @@ app.route('/newentry').get((req, res) => {
             const file = req.files.postPicture;
             const tip = req.body.postTip;
             const category = req.body.category;
+            const girditipi = req.body.girditipi;
             let filename = file.name;
             let path = __dirname + '/public/img/' + filename;
             let filenumber = 0;
@@ -151,7 +156,8 @@ app.route('/newentry').get((req, res) => {
                 person1: personone,
                 person2: persontwo,
                 tip: tip,
-                category: category
+                category: category,
+                girditipi:girditipi
     
             });
             
@@ -272,6 +278,11 @@ app.route('/post/:postID').get((req,res)=>{
     });
 
 });
+app.route('/yazilar').get((req,res)=>{
+    Post.find({girditipi:"yazidir"}).sort({'_id':-1}).exec().then(data=>{
+        res.render('yaziler',{pageTitle:"Yazilar",categories:categories,yazilar:data})
+    })
+})
 
 
 

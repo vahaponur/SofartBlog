@@ -1,0 +1,24 @@
+<%-include ('partials/header')%>
+    <div class="container">
+        <div class="row">
+                <% for( let index = 0; index < yazilar.length; index++ ) { %>
+                    <div class="col-md-4 mb-2">
+                      <div class="card card-color text-center">
+                        <img src="<%=yazilar[index].imageName%>" width="300" height="250"class="card-img-top" alt="...">
+                        <div class="card-body">
+                          <h5 class="card-title"><%=yazilar[index].title%></h5>
+                          <p class=""><%=yazilar[index].summary.substring(0,30)+"..."%></p>
+                          <a href="/post/<%= yazilar[index]._id %> " class="btn btn-primary">Devamını Gör...</a>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+            
+            <div class="col categories">
+                <% for( let index = 0; index < categories.length; index++ ) { %>
+                   <p><a href="#"><%= categories[index] %> </a></p>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<%- include('partials/footer')%>
