@@ -2,8 +2,42 @@
 const express = require('express');
 const upload = require('express-fileupload');
 const fs = require('fs');
+const _ = require('lodash');
 const mongoose = require('mongoose');
+String.prototype.turkishtoEnglish = function () {
+    return this.replace('Ğ', "G")
+    .replace('Ü','U')
+    .replace('Ş','S')
+    .replace('I','I')
+    .replace('İ','I')
+    .replace('Ö','O')
+    .replace('Ç','C')
+    .replace('ğ','g')
+     .replace('ü','u')
+    .replace('ş','s')
+    .replace('ı','i')
+    .replace('ö','o')
+    .replace('ç','c');
+};
+function Cevir(text)
+ {
+    var trMap = {
+        'çÇ':'c',
+        'ğĞ':'g',
+        'şŞ':'s',
+        'üÜ':'u',
+        'ıİ':'i',
+        'öÖ':'o'
+    };
+    for(var key in trMap) {
+        text = text.replace(new RegExp('['+key+']','g'), trMap[key]);
+    }
+    return  text.replace(/[^-a-zA-Z0-9\s]+/ig, '') 
+                .replace(/\s/gi, "-") 
+                .replace(/[-]+/gi, "-") 
+                .toLowerCase();
 
+}
 const app = express();
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -25,6 +59,12 @@ let categories = ["Edebiyat",
 "Psikoloji/Sosyoloji",
 "Röportaj",
 "Yapı",];
+let categoripagenames =[];
+categories.forEach(element => {
+    let trversion = Cevir(element);
+    categoripagenames.push(trversion);
+});
+
 mongoose.connect('mongodb://localhost:27017/sofartDB');
 const personSchema = new mongoose.Schema({
     firstName: {
@@ -138,7 +178,7 @@ app.route('/newentry').get((req, res) => {
             const summary = req.body.postSummary;
             const file = req.files.postPicture;
             const tip = req.body.postTip;
-            const category = req.body.category;
+            const category = Cevir(req.body.category);
             const girditipi = req.body.girditipi;
             let filename = file.name;
             let path = __dirname + '/public/img/' + filename;
@@ -278,15 +318,60 @@ app.route('/post/:postID').get((req,res)=>{
     });
 
 });
-app.route('/yazilar').get((req,res)=>{
-    Post.find({girditipi:"yazidir"}).sort({'_id':-1}).exec().then(data=>{
-        res.render('yaziler',{pageTitle:"Yazilar",categories:categories,yazilar:data})
+app.route('/yazilar/:page').get((req,res)=>{
+
+    let perPage = 9;
+    const page = req.params.page||1; 
+  
+    Post.countDocuments({girditipi:"yazidir"}).exec().then(count=>{
+        let previous= page-1||1;
+        let next = 0;
+        if(count>page*perPage){
+            next = Number(Number(page)+1);
+        }
+        else{
+            next = 0;
+        }
+        
+        Post.find({girditipi:"yazidir"}).sort({_id:-1}).skip((perPage*page)-perPage).limit(perPage).exec().then(data=>{
+           console.log(data.length);
+            res.render('yaziler',{pageTitle:"Yazilar",categories:categories,yazilar:data,previous:previous,next:next,asilyazilar:count})
+        });
     })
-})
+   
+});
+
+app.route('/yazilar/:category/:page').get((req,res)=>{
+    let catindex = 0;
+    for (catindex; catindex < categoripagenames.length; catindex++) {
+        if(categoripagenames[catindex] == req.params.category){
+            break;
+        }
+    }
+    let searchfrom =req.params.category
+    let perPage = 9;
+    const page = req.params.page||1; 
+    
+    Post.countDocuments({category:searchfrom.toString()}).exec().then(count=>{
+        let previous= page-1||1;
+        let next = 0;
+        if(count>page*perPage){
+            next = Number(Number(page)+1);
+        }
+        else{
+            next = 0;
+        }
+        
+        Post.find({category:searchfrom.toString()}).sort({_id:-1}).skip((perPage*page)-perPage).limit(perPage).exec().then(data=>{
+           
+            res.render('yaziler',{pageTitle:categories[catindex].toString(),categories:categories,yazilar:data,previous:previous,next:next,asilyazilar:count})
+        });
+    })
+});
 
 
 
-const PORT = 3169;
-app.listen(3169, () => {
+const PORT = 3000;
+app.listen(PORT, () => {
     console.log('Server up and running on Port: ' + PORT.toLocaleString());
 })

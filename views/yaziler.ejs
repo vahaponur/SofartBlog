@@ -1,24 +1,107 @@
 <%-include ('partials/header')%>
+<%-include('functions')%>
+
+
     <div class="container">
-        <div class="row">
-                <% for( let index = 0; index < yazilar.length; index++ ) { %>
-                    <div class="col-md-4 mb-2">
-                      <div class="card card-color text-center">
-                        <img src="<%=yazilar[index].imageName%>" width="300" height="250"class="card-img-top" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title"><%=yazilar[index].title%></h5>
-                          <p class=""><%=yazilar[index].summary.substring(0,30)+"..."%></p>
-                          <a href="/post/<%= yazilar[index]._id %> " class="btn btn-primary">Devamını Gör...</a>
+
+        <% for( let index=0; index < 3; index++) { %>
+            <div class="row">
+                <% if (index===0) { %>
+                    <div class="col">
+                        <div class="mobilkapa sidebar">
+                            <% for( let index=0; index < categories.length; index++ ) { %>
+                                <a href="/yazilar/<%=Cevir(categories[index])%>/1 ">
+                                    <%= categories[index] %>
+                                </a>
+                                <% } %>
                         </div>
-                      </div>
+                        <!-- Mobil -->
+                        <div class="row hamburger mb-5">
+                            <div class="col hamburger p-3 postbackground text-center">
+
+                                <button class="btn white" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#kategoriler" aria-controls="kategoriler" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                    <p class="ubuntu-light display-6">Kategoriler</p>
+                                </button>
+                            </div>
+
+                            <div class="collapse hamburger navbar-collapse postbackground" id="kategoriler">
+
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <% for( let index=0; index < categories.length; index++ ) { %>
+                                        <li class="nav-item text-center mobilmenuitem">
+                                            <a class="nav-link text-light" href="/yazilar/<%=Cevir(categories[index])%>/1">
+                                                <%= categories[index] %>
+                                            </a>
+                                            <% } %>
+
+                                        </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                  <% } %>
-            
-            <div class="col categories">
-                <% for( let index = 0; index < categories.length; index++ ) { %>
-                   <p><a href="#"><%= categories[index] %> </a></p>
-                <% } %>
+                    <% } else { %>
+                        <div class="col"></div>
+                        <% } %>
+
+                            <% for( let jindex=0; jindex < 3; jindex++ ) { %>
+                                <div class="col-md-3 mb-3">
+                                    <% if (typeof yazilar[jindex+index*3] !== 'undefined') { %>
+                                        <div class="card card-color text-center">
+                                            <img src="<%=yazilar[jindex+index*3].imageName%>" height="218"
+                                                class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <%=yazilar[jindex+index*3].title%>
+                                                </h5>
+                                                <p class="">
+                                                    <%=yazilar[jindex+index*3].summary.substring(0,100)+"..."%>
+                                                </p>
+                                                <a href="/post/<%= yazilar[jindex+index*3]._id %> "
+                                                    class="btn btn-primary">Devamını Gör...</a>
+                                            </div>
+                                        </div>
+                                   
+                                    <% } %>
+                                        
+                                     
+                                  
+                                </div>
+                                <% } %>
             </div>
-        </div>
+            <% } %>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-1">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="<%= previous %> " aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <% for( let index=1; index<=asilyazilar/9; index++ ) { %>
+                                <li class="page-item"><a href="/yazilar/<%= index %> " class="page-link">
+                                        <%=index%>
+                                    </a></li>
+                                <% } %>
+                                    <% if (next !==0) { %>
+                                        <li class="page-item">
+                                            <a class="page-link" href="<%= next %>" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                                <span class="sr-only">Next</span>
+                                            </a>
+                                        </li>
+                                        <% } %>
+
+                        </ul>
+                    </div>
+
+                </div>
     </div>
-<%- include('partials/footer')%>
+
+
+    <%- include('partials/footer')%>
